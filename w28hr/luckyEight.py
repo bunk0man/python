@@ -25,12 +25,14 @@ def generateIndexes(numArray, db):
         iArray.append(i)
         nArray.insert(0, db-i-1)
         res += genShuffle(iArray[:], nArray[:], numArray)
-        print(res)
     return res
 
 def luckyEight(numbers):
     counter=0
-    for element in numbers:
+    seen = set()
+    intNumbers = list(map(int, numbers))
+    uniq = [x for x in intNumbers if x not in seen and not seen.add(x)] 
+    for element in uniq:
         if int(element)%8==0 :
             counter+=1
     return counter
@@ -40,5 +42,4 @@ number = input().strip()
 number = list(number)
 
 resNum = generateIndexes(number, n)
-bigRes = luckyEight(resNum) % ( 10**9 + 7 )
-print(resNum, bigRes)
+print(luckyEight(resNum) % ( 10**9 + 7 ))
